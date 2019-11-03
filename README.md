@@ -1,7 +1,7 @@
 # Molecule Provisioning Example
 
 The story here describes a somewhat experimental (aka not yet officially suggested) way of using Molecule,
-and is NOT an introduction to the tool per-se. 
+and is NOT a gentle introduction to the basics of the tool per-se. 
 However you might still want to go throght it, to see where Molecule could be taken to, in some more complex flavour. 
 
 ### Disclaimer 
