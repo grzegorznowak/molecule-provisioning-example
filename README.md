@@ -152,7 +152,10 @@ for DO:
 
 These are just a few sample commands to get us started. 
 Head on to https://molecule.readthedocs.io/en/stable/usage.html, to get the full list
-of possible commands, just please note some of those aren't fully supported in this example, like `Lint`
+of possible commands. 
+Of those some aren't fully supported in this example, like `Lint` or `Idempotence`. 
+Both of which should eventually be fulfilled for even more correctness.
+
 
 ## Advanced usage 
 
@@ -186,7 +189,7 @@ So broadly speaking my recipe is:
 * define default and host-specific tests so you know what is to be wanted (TDD, remember?)
 * put in roles for each group in `playbook.yml`
 * take note of variables that need to be defined and add them (either on groups or on per-host level)
-* converge and verify, repeat until works and passes tests.
+* converge and verify, maybe destroy. Repeat until works and passes tests.
 
 ## Using in actual projects
 
