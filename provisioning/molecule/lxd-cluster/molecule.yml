@@ -61,12 +61,12 @@ platforms:
       - vpn-servers
       - all
 
+
 provisioner:
   name: ansible
   env:
     ANSIBLE_ROLES_PATH:
       $ephemeral_directory/roles/:../../roles/
-
   inventory:
     links:
       group_vars: ../../inventory/test/group_vars/

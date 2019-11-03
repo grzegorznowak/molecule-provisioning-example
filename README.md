@@ -35,14 +35,14 @@ So we want to provision a webapp cluster, consisting of:
 * Redis server providing cache and sessions datasets connected with webservers
 
 All intra-server connections are maintained using simple mesh VPN, 
-and the only public-facing interface are Webservers' ones.
+and the only public-facing interface are webservers' ones.
 
 1. we decided to use https://tinc-vpn.org/ for user-space mesh VPN on LXD clusters,
 2. and more to-the-core (and way faster) https://www.wireguard.com/ on actual DO droplets.
 
 In our example the only substantial difference between environments is usage of different VPN mesh tool, 
 and not putting maintainers' keys onto LXD instance.
-Oh and also, just for the sake of showing how it should be done in live Scenarios, 
+Oh and also, just for the sake of showing how it should be done in live scenarios, 
 the `do-cluster` has the `destroy.yml` file tweaked so that it doesn't actually remove any droplet, 
 making it impossible to accidentally remove a live stack! 
 
@@ -51,8 +51,8 @@ and this example should give us a good starting point on where main changes can 
 
 
 Essentially it's crucial to abstract and DRY as many things as possible, and ideally just keep tweaking the `playbook.yml`,
-until is works for us. The less moving parts the better. Sometimes we will need a separate group/host vars loaded for 
-other scenarios. And that's fine - there's no strict rule about that, other than dedupe, when possible!
+until it works for us. The less moving parts the better. Sometimes we will need a separate group/host vars loaded for 
+other scenarios, and that's fine - there's no strict rule about that, other than dedupe, when possible!
 
 General Structure best depicted with this picture:
  
@@ -149,12 +149,45 @@ for DO:
 
     NOP. we've disabled that purposefully for this scenario.
 
- 
 These are just a few sample commands to get us started. 
 Head on to https://molecule.readthedocs.io/en/stable/usage.html, to get the full list
 of possible commands, just please note some of those aren't fully supported in this example, like `Lint`
- 
-## Using in your own projects
+
+## Advanced usage 
+
+#### Only converge webserver
+
+    cd provisioning
+    source provisioningenv/bin/activate 
+    molecule converge -s lxd-cluster -- --tags=webserver
+
+#### Only setup VPN mesh
+
+    cd provisioning
+    source provisioningenv/bin/activate 
+    molecule converge -s lxd-cluster -- --tags=vpn-servers
+    
+The functionality of `tags` come from Ansible itself, and is somewhat similar to writing CSS in the end. 
+Make it good and abstract enough and you will own when tweaks have to flow in, or throw it against the wall with no plan,
+to be owned eventually...
+
+I think the way we have it done here is a good starting point, and more tags should be added only if needed. Less is definitely better here.
+
+
+### What is there to change, actually ?
+### And how do I get started myself ??
+
+Yes well, basically everything can be changed, but I know that's not helping.
+
+So broadly speaking my recipe is:
+* make sure I have `instances` section in `molecule.yml` defined with servers I want
+* group them up in a way that make sense
+* define default and host-specific tests so you know what is to be wanted (TDD, remember?)
+* put in roles for each group in `playbook.yml`
+* take note of variables that need to be defined and add them (either on groups or on per-host level)
+* converge and verify, repeat until works and passes tests.
+
+## Using in actual projects
 
 Normally I maintain `provisioning` folder with basically exactly the same structure in project. 
 Just have a look at simples use-case possible at https://github.com/spottmedia/rust-wasm-starter.
