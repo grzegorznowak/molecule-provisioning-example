@@ -190,10 +190,10 @@ So broadly speaking my recipe is:
 ## Using in actual projects
 
 Normally I maintain `provisioning` folder with basically exactly the same structure in project. 
-Just have a look at simples use-case possible at https://github.com/spottmedia/rust-wasm-starter.
+Just have a look at simplest use-case possible under https://github.com/spottmedia/rust-wasm-starter.
 
-So enabling molecule-driven setup is as easy as copying the `provisioning` folder somewhere into your pojects,
-and keeping it there for everyone to use as they need it.
+Enabling molecule-driven setup is as easy as copying the `provisioning` folder somewhere into your pojects,
+and keeping it there for everyone (your devs, automation tools, admins) to use as they need it.
 
 
  
