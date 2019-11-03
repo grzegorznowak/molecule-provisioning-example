@@ -8,25 +8,24 @@ However you might still want to go throght it, to see where Molecule could be ta
 
 I've coded and written this project on a cold Sunday morning between one burst of insomnia and another,
 so the thing I need the most is a warming, constructive feedback on how this all could be improved. Please don't hesitate
-to suggest updates, as this specific setup is something I've been doing for more than a year now, so a lot of assumed knowledge 
-(as well as plain bugs!) might be snuck in here. 
+to suggest updates, as this specific setup is something I've been doing for more than a year now, and a lot of assumed knowledge (as well as plain bugs!) might have snuck in here. 
 Let's keep it as accessible to Molecule/Ansible newcomers as possible. 
 
 #### Also a note on admin/server side of things
 
-Server-setup roles here are brought from various ends, including by not limited to my own's, 
+Server-setup roles here are brought from various ends, including, by not limited to my own's, 
 and I take no responsibility of the final outcome of running any of the scenarios given out here. 
 However a stack, very similar to the one presented here, runs happily a production-grade application,
 so it did get tested in wild already.  
 
 ## Expected Result
 
-Assume we want a stack with 2 webservers. 
-To make things more interesting one need to have PHP 7.1, with the other on PHP 7.3,
-as we might supposedly be mid migration between versions, and need to test drive the same codebase
-with two different flavours.
+Assume we want a stack with 2 webservers and some connected services spread across the cluster.
+To make things more interesting we will maintain two versions of PHP,
+as we might supposedly be mid-migration between versions, and need to test-drive the same codebase
+against different flavours.
 
-So we want to provision a webapp cluster, consisting of:
+We want to provision a webapp cluster, consisting of:
 
 * Webserver with PHP 7.1
 * Webserver with PHP 7.3
@@ -35,7 +34,7 @@ So we want to provision a webapp cluster, consisting of:
 * Redis server providing cache and sessions datasets connected with webservers
 
 All intra-server connections are maintained using simple mesh VPN, 
-and the only public-facing interface are webservers' ones.
+and the only public-facing interfaces are webservers' ones.
 
 1. we decided to use https://tinc-vpn.org/ for user-space mesh VPN on LXD clusters,
 2. and more to-the-core (and way faster) https://www.wireguard.com/ on actual DO droplets.
