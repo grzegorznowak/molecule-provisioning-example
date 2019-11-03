@@ -1,0 +1,15 @@
+ufw_allow:
+  - port: 6379
+    from: 10.0.0.0/24
+  - port: 6380
+    from: 10.0.0.0/24
+  - port: 51820
+    proto: udp
+    from: any
+redis_configs:
+  - port: 6379,
+    name: "sessions"
+    bind: 10.0.0.4
+  - port: 6380,
+    name: "cache"
+    bind: 10.0.0.4

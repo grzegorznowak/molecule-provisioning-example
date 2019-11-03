@@ -1,9 +1,4 @@
 solr_version: "8.2.0"
-ufw_allow:
-  - port: 8983
-    from: 10.0.1.0/24
-  - port: 655
-    from: any
 vpn_ip: 10.0.1.7
 tinc_hostname: solr
 tinc_connect_to:

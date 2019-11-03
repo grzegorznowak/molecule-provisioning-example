@@ -60,8 +60,8 @@ provisioner:
       $ephemeral_directory/roles/:../../roles/
   inventory:
     links:
-      group_vars: ../../inventory/test/group_vars/
-      host_vars: ../../inventory/test/host_vars/
+      group_vars: ../../inventory/do/group_vars/
+      host_vars: ../../inventory/common/host_vars/
 
   config_options:
     defaults:

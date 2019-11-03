@@ -1,0 +1,10 @@
+ufw_allow:
+  - port: 1:65535
+    proto: udp
+    from: 10.0.1.0/24
+  - port: 1:65535
+    proto: tcp
+    from: 10.0.1.0/24
+  - port: 51820
+    proto: udp
+    from: any

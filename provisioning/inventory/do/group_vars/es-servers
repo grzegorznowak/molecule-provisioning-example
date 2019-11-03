@@ -1,0 +1,13 @@
+es_basicauth_pass: "{{ lookup('password', '/tmp/es-servers-basicauth-pass') }}"
+ufw_allow:
+  - port: 443
+    from: any
+  - port: 51820
+    proto: udp
+    from: any
+file_sync_maps:
+  - source: << local folder with production grade SSL certs >>
+    destination: /etc/ssl/
+es_proxy_key_file: /etc/ssl/ssl.key
+es_proxy_chain_file: /etc/ssl/ssl.chain.crt
+es_hostname: es.example.com

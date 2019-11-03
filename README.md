@@ -39,11 +39,13 @@ and the only public-facing interfaces are webservers' ones.
 1. we decided to use https://tinc-vpn.org/ for user-space mesh VPN on LXD clusters,
 2. and more to-the-core (and way faster) https://www.wireguard.com/ on actual DO droplets.
 
-In our example the only substantial difference between environments is usage of different VPN mesh tool, 
-and not putting maintainers' keys onto LXD instance.
-Oh and also, just for the sake of showing how it should be done in live scenarios, 
-the `do-cluster` has the `destroy.yml` file tweaked so that it doesn't actually remove any droplet, 
-making it impossible to accidentally remove a live stack! 
+In our example there are a few differences between environments:
+ * usage of different VPN mesh tool.
+ * swap partition bootstrap for DO environment (and lack of it for LXD)
+ * no maintainers' key distribution on LXD
+ * also, just for the sake of showing how it should be done in live scenarios, 
+   the `do-cluster` has the `destroy.yml` file tweaked so that it doesn't actually remove any droplet, 
+   making it impossible to accidentally remove a live stack! 
 
 In concrete apps there can be more changes across clusters,
 and this example should give us a good starting point on where main changes can be put in.
@@ -88,7 +90,7 @@ again to just let us started where to put things in the end.
 
 ## Variables
 
-Please note some variables within `provisioning/inventory/test/group_vars` need to be materialized before usage in
+Please note some variables within `provisioning/inventory/**/group_vars` need to be materialized before usage in
 this particular landscape, denoted by `<< >>` wrapping. 
 Mainly around variables that point to SSL certs.
 It would be easy to get rid of roles needing those, but I wanted to keep it as production-ready as possible,

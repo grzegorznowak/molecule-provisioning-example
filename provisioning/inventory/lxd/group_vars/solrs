@@ -1,0 +1,5 @@
+ufw_allow:
+  - port: 8983
+    from: 10.0.1.0/24
+  - port: 655
+    from: any

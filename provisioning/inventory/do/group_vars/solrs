@@ -1,0 +1,6 @@
+ufw_allow:
+  - port: 8983
+    from: 10.0.1.0/24
+  - port: 51820
+    proto: udp
+    from: any

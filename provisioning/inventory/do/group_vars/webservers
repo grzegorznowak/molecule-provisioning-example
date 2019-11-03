@@ -1,0 +1,19 @@
+apache_server_admin: admin@example.com
+apache_server_alias: webserver
+php_use_redis: true
+php_install_fpm: true
+apache_https_port: 443
+apache_http_port: 80
+ufw_allow:
+  - port: 80
+    from: any
+  - port: 443
+    from: any
+  - port: 51820
+    proto: udp
+    from: any
+nvm_node_version: "10.16.2"
+nvm_install_globally: ['gulp']
+file_sync_maps:
+  - source:  << local folder with production grade SSL certs >>
+    destination: /etc/ssl/
