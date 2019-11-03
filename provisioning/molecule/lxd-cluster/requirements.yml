@@ -1,0 +1,18 @@
+---
+
+- src: votum.ngrok
+- src: grzegorznowak.nvm_node
+- src: grzegorznowak.redis
+- src: elastic.elasticsearch
+  version: "7.1.1"
+
+- geerlingguy.java
+- geerlingguy.ansible
+
+- src: https://github.com/spottmedia/ansible-tinc
+  scm: git
+  version: origin/master
+
+- src: https://github.com/spottmedia/shareable-ansible-toolkit.git
+  scm: git
+  version: origin/master

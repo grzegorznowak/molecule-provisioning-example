@@ -1,0 +1,7 @@
+---
+port:
+  tcp:80:
+    listening: true
+mount:
+  /var/www:
+     exists: true

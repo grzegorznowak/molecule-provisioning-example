@@ -1,0 +1,5 @@
+vpn_ip: 10.0.1.5
+tinc_hostname: mysql
+tinc_connect_to:
+  - webserver
+  - esmaster

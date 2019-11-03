@@ -1,0 +1,5 @@
+tinc_hostname: redis
+tinc_connect_to:
+  - webserver73
+  - webserver
+vpn_ip: 10.0.1.4

@@ -1,0 +1,5 @@
+nfs_mounts:
+  - source: 10.0.1.3:/var/www/
+    target: /var/www/
+nfs_client_service_after: tinc.service
+nfs_client_service_bindsto: tinc.service

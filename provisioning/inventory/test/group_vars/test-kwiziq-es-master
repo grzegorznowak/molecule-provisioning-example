@@ -1,0 +1,10 @@
+vpn_ip: 10.0.1.10
+tinc_hostname: esmaster
+tinc_connect_to:
+  - mysql
+es_version: "6.3.1"
+es_config: {
+    bootstrap.memory_lock: false,
+    search.max_buckets: 500000
+}
+es_heap_size: "512m"

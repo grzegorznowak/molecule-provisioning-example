@@ -1,0 +1,13 @@
+---
+port:
+  tcp:6379:
+    listening: true
+  tcp:6380:
+    listening: true
+service:
+  redis-sessions:
+    enabled: true
+    running: true
+  redis-cache:
+    enabled: true
+    running: true

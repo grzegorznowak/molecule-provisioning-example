@@ -1,0 +1,88 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: lxd
+lint:
+  name: yamllint
+platforms:
+  - name: test-webserver
+    nested: "true"
+    privileged: "true"
+    image: "ubuntu/xenial/amd64"
+    groups:
+      - webservers
+      - vpn-servers
+      - nfs-consumers
+      - all
+
+  - name: test-mysql
+    nested: "false"
+    privileged: "false"
+    image: "ubuntu/xenial/amd64"
+    groups:
+      - mysqls
+      - vpn-servers
+      - all
+
+  - name: test-webserver-php7-3
+    nested: "true"
+    privileged: "true"
+    image: "ubuntu/bionic/amd64"
+    groups:
+      - webservers
+      - vpn-servers
+      - nfs-consumers
+      - all
+
+  - name: test-solr
+    nested: "false"
+    privileged: "false"
+    image: "ubuntu/xenial/amd64"
+    groups:
+      - solrs
+      - all
+
+  - name: test-redis
+    nested: "false"
+    privileged: "false"
+    image: "ubuntu/bionic/amd64"
+    groups:
+      - redis-servers
+      - vpn-servers
+      - all
+
+  - name: test-nfs-server
+    nested: "false"
+    privileged: "true"
+    image: "ubuntu/bionic/amd64"
+    groups:
+      - nfs-servers
+      - vpn-servers
+      - all
+
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH:
+      $ephemeral_directory/roles/:../../roles/
+
+  inventory:
+    links:
+      group_vars: ../../inventory/test/group_vars/
+      host_vars: ../../inventory/test/host_vars/
+
+  config_options:
+    defaults:
+      internal_poll_interval: 0.001
+    ssh_connection:
+      pipelining: True
+
+  lint:
+    name: ansible-lint
+scenario:
+  name: "lxd-cluster"
+verifier:
+  name: goss
+  lint:
+    name: yamllint

@@ -1,0 +1,103 @@
+---
+- name: Converge for all
+  hosts: all
+
+  roles:
+    - shareable-ansible-toolkit/common-dev
+    - shareable-ansible-toolkit/server_hardening
+  tags:
+    - all-servers
+
+
+- name: Converge for tinc enabled servers
+  hosts: vpn-servers
+
+  roles:
+    - role: ansible-tinc/tinc
+      netname: tincnet
+      physical_ip: "{{ ansible_eth0.ipv4.address }}"  # lxd's main interface
+      vpn_interface: tun0
+      vpn_netmask: 255.255.255.0
+      vpn_subnet_cidr_netmask: 32
+  tags:
+    - vpn-servers
+
+
+- name: Converge for NFS servers
+  hosts: nfs-servers
+
+  roles:
+    - role: shareable-ansible-toolkit/nfs-server
+  tags:
+    - nfs-servers
+
+
+- name: Converge for nfs consumers
+  hosts: nfs-consumers
+
+  roles:
+     - shareable-ansible-toolkit/nfs-client
+  tags:
+    - nfs-consumers
+
+
+- name: Converge for redis servers
+  hosts: redis-servers
+
+  roles:
+    - role: grzegorznowak.redis
+  tags:
+    - redis-servers
+
+
+- name: Converge for webservers
+  hosts: webservers
+  roles:
+    - shareable-ansible-toolkit/files-sync
+    - role: shareable-ansible-toolkit/apache_base
+    - shareable-ansible-toolkit/apachewebtier
+    - grzegorznowak.nvm_node
+    - shareable-ansible-toolkit/phing_composer
+  tags:
+    - webservers
+
+
+- name: Converge specific for 7.1
+  hosts: test-webserver
+  vars:
+  roles:
+    - role: shareable-ansible-toolkit/apache2-upgrade
+    - shareable-ansible-toolkit/php-7.1-fpm-config-tweak
+  tags:
+    - webservers
+
+
+- name: Converge for mysqls
+  hosts: mysqls
+  roles:
+    - shareable-ansible-toolkit/dev-mysql
+  tags:
+    - mysql-servers
+
+
+- name: Converge for solrs
+  hosts: solrs
+  roles:
+    - geerlingguy.java
+    - shareable-ansible-toolkit/ansible-role-solr
+  tags:
+    - solr-servers
+
+
+- name: Converge for ES servers
+  hosts: es-servers
+
+  roles:
+    - geerlingguy.java
+    - elastic.elasticsearch
+    - shareable-ansible-toolkit/files-sync
+    - shareable-ansible-toolkit/nginx_base
+    - role: shareable-ansible-toolkit/php7_base
+    - role: cluster-es-role  # includes hardening
+  tags:
+    - es-servers

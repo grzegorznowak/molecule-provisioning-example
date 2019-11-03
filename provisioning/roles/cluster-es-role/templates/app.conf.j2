@@ -1,0 +1,25 @@
+  upstream elasticsearch {
+    server 127.0.0.1:9200;
+
+    keepalive 15;
+  }
+
+  server {
+    server_name {{ es_hostname }};
+    listen 443 ssl;
+
+    ssl_certificate {{ es_proxy_chain_file }};
+    ssl_certificate_key {{ es_proxy_key_file }};
+
+    location / {
+      auth_basic "Restricted";
+      # elasticsearch :: {{ es_basicauth_pass }}
+      auth_basic_user_file /etc/nginx/passwdfile;
+      proxy_pass http://elasticsearch;
+      proxy_http_version 1.1;
+      proxy_set_header Connection "Keep-Alive";
+      proxy_set_header Proxy-Connection "Keep-Alive";
+    }
+
+
+  }

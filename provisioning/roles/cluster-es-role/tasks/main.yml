@@ -1,0 +1,42 @@
+---
+
+- name: install pip3
+  apt:
+    pkg:
+     - python3-pip
+    state: installed
+    update-cache: yes
+    install_recommends: no
+    cache_valid_time: 3600
+
+- name: install passlib pip for htpasswd
+  pip:
+    name: passlib
+    executable: pip3
+
+- htpasswd:
+    path: /etc/nginx/passwdfile
+    name: elasticsearch
+    password: "{{ es_basicauth_pass }}"
+    owner: www-data
+    group: www-data
+    mode: 0640
+
+- name: Copy nginx vhost
+  template: src=app.conf.j2 dest=/etc/nginx/sites-available/app.conf mode="u+x,g+x,o+x"
+  notify: Restart NGINX
+
+- name: Enable nginx vhost
+  file:
+    src: /etc/nginx/sites-available/app.conf
+    dest: /etc/nginx/sites-enabled/app.conf
+    owner: www-data
+    group: www-data
+    state: link
+  notify: Restart NGINX
+
+- name: Setup cron to start ES on reboot
+  cron:
+    name: "restart ES"
+    special_time: "reboot"
+    job: "/bin/systemctl start elasticsearch"

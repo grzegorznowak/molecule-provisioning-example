@@ -1,0 +1,8 @@
+---
+port:
+  tcp:22:
+    listening: true
+service:
+  sshd:
+    enabled: true
+    running: true
