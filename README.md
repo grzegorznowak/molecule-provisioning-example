@@ -39,7 +39,7 @@ and the only public-facing interfaces are webservers' ones.
 1. we decided to use https://tinc-vpn.org/ for user-space mesh VPN on LXD clusters,
 2. and more to-the-core (and way faster) https://www.wireguard.com/ on actual DO droplets.
 
-In our example there are a few differences between environments:
+There are a few more differences between environments:
  * usage of different VPN mesh tool.
  * swap partition bootstrap for DO environment (and lack of it for LXD)
  * no maintainers' key distribution on LXD
